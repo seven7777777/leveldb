@@ -125,6 +125,8 @@ func (m *MemDB) findNode(key []byte, prev *[maxHeight]int) (n int, exactMatch bo
 				exactMatch = c == 0
 				break
 			}
+			//n表示当前节点
+			//p表示当前节点的前向节点
 			p, n = n, m.nodeData[n+fNxt+h]
 		}
 		if prev != nil {
