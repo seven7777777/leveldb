@@ -179,9 +179,9 @@ func (m *MemDB) Set(key, value []byte, o *db.WriteOptions) error {
 	x[fVal] = m.save(value)
 	for i := 0; i < h; i++ {
 		j := prev[i] + fNxt + i
-		//接管前向节点的后向节点
+		//接管前向节点第i层的后向节点
 		x[fNxt+i] = m.nodeData[j]
-		//设置前向节点的后向节点为当前节点
+		//设置前向节点第i层的后向节点为当前节点
 		m.nodeData[j] = n1
 	}
 	m.nodeData = append(m.nodeData, x[:fNxt+h]...)
