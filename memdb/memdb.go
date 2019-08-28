@@ -165,6 +165,7 @@ func (m *MemDB) Set(key, value []byte, o *db.WriteOptions) error {
 	// Raise the skiplist's height to the node's height, if necessary.
 	if m.height < h {
 		for i := m.height; i < h; i++ {
+			//设置默认前向节点为首节点
 			prev[i] = headNode
 		}
 		m.height = h
@@ -176,7 +177,9 @@ func (m *MemDB) Set(key, value []byte, o *db.WriteOptions) error {
 	x[fVal] = m.save(value)
 	for i := 0; i < h; i++ {
 		j := prev[i] + fNxt + i
+		//接管前向节点的后向节点
 		x[fNxt+i] = m.nodeData[j]
+		//设置前向节点的后向节点为当前节点
 		m.nodeData[j] = n1
 	}
 	m.nodeData = append(m.nodeData, x[:fNxt+h]...)
