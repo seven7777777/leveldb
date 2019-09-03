@@ -111,6 +111,7 @@ func (m *MemDB) save(b []byte) (kvOffset int) {
 // If prev is non-nil, it also sets the first m.height elements of prev to the
 // preceding node at each height.
 func (m *MemDB) findNode(key []byte, prev *[maxHeight]int) (n int, exactMatch bool) {
+	//分层遍历每一层组成的链表
 	for h, p := m.height-1, headNode; h >= 0; h-- {
 		// Walk the skiplist at height h until we find either a zero node
 		// or one whose key is >= the given key.
